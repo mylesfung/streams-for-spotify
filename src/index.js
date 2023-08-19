@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import ListenData from './components/ListenData';
 import reportWebVitals from './reportWebVitals';
 
 // ReactDOM renders app by attaching it to a HTML root element (nested in <body>)
@@ -10,7 +9,6 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <App />
-    <ListenData />
   </React.StrictMode>
 );
 
