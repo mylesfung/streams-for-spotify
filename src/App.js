@@ -4,6 +4,7 @@
 import { ReactComponent as Logo } from "./logo.svg"
 import './App.css';
 import ListenData from './components/ListenData';
+import { useEffect, useState } from "react";
 
 function App() {
   const CLIENT_ID = "db1fb6a46e4b4173b335eba99b582a6c";
@@ -12,13 +13,36 @@ function App() {
   const RESPONSE_TYPE = "token";
 
   // OAuth 2.0 framework - Implicit Grant Flow
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    const hash = window.location.hash;
+    token = window.localStorage.getItem("token");
+
+    if (!token && hash) {
+      // extracting token from hash
+      token = hash.substring(1).split("&").find(x => x.startsWith("access_token")).split("=")[1];
+      window.location.hash = "";
+      window.localStorage.setItem("token", token);
+    }
+    setToken(token);
+  })
+
+  // Logout
+  const logout = () => {
+    setToken("");
+    window.localStorage.removeItem("token");
+
+  }
 
   return (
     <div className="App">
       <header className="App-header">
         <Logo className="App-logo" alt="logo" style={{ height: 170 }}/>
+
         <h1>Streams for Spotify</h1>
         <p className="login-text">Log in to view your comprehensive listening data.</p>
+        
         <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>
           Log in to Spotify</a>
       </header>
