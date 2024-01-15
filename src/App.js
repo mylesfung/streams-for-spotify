@@ -1,6 +1,5 @@
-// import logo from './logo.svg';
-
-// syntax for images and other assets: import { ReactComponent as [chosenName] } from "./pathInFolder"
+// syntax for images and other assets: 
+// import { ReactComponent as [chosenName] } from "./pathInFolder"
 import { ReactComponent as Logo } from "./logo.svg"
 import './App.css';
 import ListenData from './components/ListenData';
@@ -17,7 +16,7 @@ function App() {
 
   useEffect(() => {
     const hash = window.location.hash;
-    token = window.localStorage.getItem("token");
+    let token = window.localStorage.getItem("token");
 
     if (!token && hash) {
       // extracting token from hash
@@ -30,9 +29,8 @@ function App() {
 
   // Logout
   const logout = () => {
-    setToken("");
     window.localStorage.removeItem("token");
-
+    setToken("");
   }
 
   return (
@@ -41,15 +39,16 @@ function App() {
         <Logo className="App-logo" alt="logo" style={{ height: 170 }}/>
 
         <h1>Streams for Spotify</h1>
-        <p className="login-text">Log in to view your comprehensive listening data.</p>
-        
-        <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>
+        <p className="login-text">View your comprehensive music streaming stats.</p>       
+        <a className="login-text" 
+        href={`${AUTH_ENDPOINT}?
+        client_id=${CLIENT_ID}&
+        redirect_uri=${REDIRECT_URI}&
+        response_type=${RESPONSE_TYPE}`}>
           Log in to Spotify</a>
       </header>
     </div>
   );
 }
-
-// <img src="/logo.svg" className="App-logo" alt="logo" />
 
 export default App;
