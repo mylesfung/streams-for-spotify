@@ -11,16 +11,16 @@ function App() {
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
 
-  // OAuth 2.0 framework
+  // OAuth 2.0 framework - Implicit Grant Flow
 
   return (
     <div className="App">
       <header className="App-header">
-        <Logo className="App-logo" alt="logo" style={{ height: 150 }}/>
-        <h1>Listenometer</h1>
-        <p className="Enthusiastic-text">Login to view your listening data!</p>
+        <Logo className="App-logo" alt="logo" style={{ height: 170 }}/>
+        <h1>Streams for Spotify</h1>
+        <p className="login-text">Log in to view your comprehensive listening data.</p>
         <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>
-          Login to Spotify</a>
+          Log in to Spotify</a>
       </header>
     </div>
   );
