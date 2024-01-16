@@ -2,7 +2,6 @@
 // import { ReactComponent as [chosenName] } from "./pathInFolder"
 import { ReactComponent as Logo } from "./logo.svg"
 import './App.css';
-import ListenData from './components/ListenData';
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -34,32 +33,30 @@ function App() {
     setToken("");
   }
 
-  // Get Top Artists Function (currently search artists function)
-
-  // store search term [string]
-  const [searchKey, setSearchKey] = useState("");
-  // store artists [array]
+  // Top Five Artists
   const [artists, setArtists] = useState([]);
 
-  const searchArtists = async (e) => {
-    e.preventDefault()
-    const {data} = await axios.get("https://api.spotify.com/v1/search", {
+  const getTopFiveArtists = async () => {
+    console.log("Token: ", token);
+    const response = await axios.get("https://api.spotify.com/v1/me/top/artists", {
       headers: {
         Authorization: `Bearer ${token}`
       },
       params: {
-        q: searchKey,
-        type: "artist"
+        type: "artists",
+        time_range: "short_term",
+        limit: "5",
+        offset: "0"
       }
     });
-    setArtists(data.artists.items);
-  }
+    console.log(response.items);
+    setArtists(response.items);
 
-  const renderArtists = () => {
+    //console.log(artists);
     return artists.map(artist => (
       <div key={artist.id}>
-        {artist.images.length ? <img width={"65%"} src={artist.images[0].url} alt=""/> : <div>No Image</div>}
         {artist.name}
+        {artist.images[1]}
       </div>
     ))
   }
@@ -70,18 +67,13 @@ function App() {
         <Logo className="App-logo" alt="logo" style={{ height: 170 }}/>
 
         <h1>Streams for Spotify</h1>
-        <p className="login-text">View your comprehensive music streaming stats.</p>       
-        <a className="login-text" 
-        href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>
+        <p className="login-text">View your music streaming stats.</p>       
+        <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>
           Log in to Spotify</a>
 
         <br></br>
-        <form onSubmit={searchArtists}>
-          <input type="text" onChange={e => setSearchKey(e.target.value)}></input>
-          <button type={"submit"}>Search Artists</button>
-        </form>
-
-        {renderArtists()}
+          <button onClick={getTopFiveArtists}>
+            Show Top Five Artists</button>
       </header>
     </div>
   );

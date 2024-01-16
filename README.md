@@ -1,3 +1,3 @@
 # Streams for Spotify
 
-Fetching listening data from Spotify Web API
+Accessing music streaming stats from Spotify Web API

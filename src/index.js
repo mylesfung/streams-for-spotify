@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import Message from './components/Message';
 import reportWebVitals from './reportWebVitals';
 
 // ReactDOM renders app by attaching it to a HTML root element (nested in <body>)
